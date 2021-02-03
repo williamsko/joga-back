@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_countries',
+
+    'apps.customer',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +121,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# GRIDFS
+DEFAULT_FILE_STORAGE = 'gridfs_storage.storages.GridFSStorage'
+DEFAULT_GRIDFS_URL = 'mongodb://127.0.0.1:27017'
+DEFAULT_GRIDFS_SERVE_URL = None
+DEFAULT_COLLECTION = 'storage'
