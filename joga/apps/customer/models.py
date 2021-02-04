@@ -45,6 +45,7 @@ class ProofContent(models.Model):
         verbose_name_plural = _('Documents')
         app_label = 'customer'
 
+
 class Proofs(models.Model):
     customer = models.ForeignKey('Customer', on_delete=models.DO_NOTHING, null=False, blank=False)
     type = models.ForeignKey('ProofType', on_delete=models.DO_NOTHING, null=False, blank=False)
