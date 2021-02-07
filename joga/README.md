@@ -22,24 +22,28 @@ DJANGO_LOGLEVEL=info
 
 - Build containers
 
-```docker-compose up --build
+```
+docker-compose up --build
 
 ```
 
 - Create a superuser in order to access Django admin IHM
 
-```docker run -i -t --env-file env backend sh
+```
+docker run -i -t --env-file env backend sh
 python manage.py createsuperuser
 ```
 
 - Finally, generate the static files for the app
 
-```docker run --env-file env backend sh -c "python manage.py collectstatic --noinput"
+```
+docker run --env-file env backend sh -c "python manage.py collectstatic --noinput"
 
 ```
 
 - We can now run the app:
 
-```docker compose up
+```
+docker compose up
 
 ```
