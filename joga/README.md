@@ -1,69 +1,24 @@
-# JOGA BACKEND #
+# JOGA BACKEND
 
-Readme of JOGA project.
+```docker build -t joga-back:v0 .
+docker run --env-file env joga-back:v0 sh -c "python manage.py makemigrations && python manage.py migrate"
 
-## Prerequisites ##
-
-- docker (Install Docker according to your system Mac or Linux)
-
-You can use the script at https://get.docker.com/ to download and install docker
-
-```
-curl https://get.docker.com/ >> install_docker.sh
-sudo systemctl start docker
-```
-
-- Install and start Docker compose
-```
-sudo pip install docker-compose
-```
-
-## Project setup ##
-
-###Please follow this instructions to setup the project locally in a docker container
-
-- Clone the project on your the server on your local machine
-```
-- git clone https://github.com/The-GeekCorner/joga-back.git
-- cd joga-back
-
-```
-
-- First Build of the project with docker
-```
-- docker build .
-```
-
-- Create necessary tables and migrate database
-```
-- docker-compose run web python /code/manage.py migrate --noinput
-```
-
-- Run test to assure everything is OK
-```
-- docker-compose run web python /code/manage.py test
-```
-
-- Collect static files in order to serve statics with nginx
-```
-- docker-compose run web python /code/manage.py collectstatic --noinput
 ```
 
 - Create a superuser in order to access Django admin IHM
-```
-- docker-compose run web python /code/manage.py superuser --username root --password a_complicated_password --noinput --email 'admin@email.com'
+
+```docker run -i -t --env-file env joga-back:v0 sh
+python manage.py createsuperuser
 ```
 
-- Build again project and up with docker-compose in detached mode. You can remove ```-d``` option
-```
-- docker-compose up -d --build
+- Finally, generate the static files for the app
+
+```docker run --env-file env joga-back:v0 sh -c "python manage.py collectstatic --noinput"
+
 ```
 
-### You can use instead this 2 steps below
-run  deploy.sh script to deploy
-```
-- git clone https://github.com/The-GeekCorner/joga-back.git
-- cd joga-back
-- sudo chmod +x deploy.sh
-- sudo ./deploy.sh
+- We can now run the app:
+
+```docker run --env-file env -p 80:8000 django-polls:v0
+
 ```
