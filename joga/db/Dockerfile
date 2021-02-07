@@ -1,2 +1,2 @@
-FROM postgres:alpine
+FROM postgres
 ADD ./init /docker-entrypoint-initdb.d/

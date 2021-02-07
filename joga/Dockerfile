@@ -29,6 +29,6 @@ ENV VIRTUAL_ENV /env
 
 ENV PATH /env/bin:$PATH
 
-EXPOSE 8000
+EXPOSE 8001
 
 CMD ["gunicorn", "--bind", ":8001", "--workers", "3", "joga.wsgi:application"]
