@@ -8,3 +8,6 @@ down:
 
 up: 
 	docker-compose up
+
+up-no-cache:
+	docker-compose build --no-cache

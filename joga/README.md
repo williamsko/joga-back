@@ -2,13 +2,15 @@
 
 - Install prerequsites
 
-```pip install cryptography --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
+```shell
+pip install cryptography --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
 pip install docker-compose
 ```
 
 - Create env file at the root of the directory and paste lines below with correct valudes
 
-```DJANGO*SECRET_KEY=secretkey
+```shell
+DJANGO*SECRET_KEY=secretkey
 DEBUG=False
 DJANGO_ALLOWED_HOSTS=your_server_IP_address
 DATABASE_ENGINE=postgresql_psycopg2
@@ -22,28 +24,36 @@ DJANGO_LOGLEVEL=info
 
 - Build containers
 
+```shell
+make up
+
 ```
-docker-compose up --build
+
+- Connect to Joga web container shell
+
+```shell
+docker exec -it `docker ps -aqf "name=joga_web"` /bin/sh
 
 ```
 
 - Create a superuser in order to access Django admin IHM
 
-```
-docker run -i -t --env-file env backend sh
+```shell
 python manage.py createsuperuser
 ```
 
 - Finally, generate the static files for the app
 
-```
-docker run --env-file env backend sh -c "python manage.py collectstatic --noinput"
+```shell
+python manage.py collectstatic --noinput
 
 ```
 
-- We can now run the app:
+- See logs
 
-```
-docker compose up
+```shell
+docker logs `docker ps -aqf "name=joga_web"` --follow
+docker logs `docker ps -aqf "name=joga_db"` --follow
+docker logs `docker ps -aqf "name=joga_nginx"` --follow
 
 ```

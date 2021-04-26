@@ -9,11 +9,13 @@ services:
       - "JOGA_DB_USER=jogadba"
       - "JOGA_DB_PASSWORD=8QxpF-ZdJ%RT9T=NQ-7cFUgr"
       - "JOGA_DB_DATABASE=jogadb"
+      - "POSTGRES_PASSWORD=postgres"
+
     build: "./db"
 
-  backend:
+  web:
     build: .
-    command: python manage.py makemigrations --noinput && python /code/manage.py migrate --noinput && python/code/manage.py collectstatic --noinput && python /code/manage.py runserver 0.0.0.0:8001
+    command: python /code/manage.py runserver 0.0.0.0:8001
     environment:
       - "DJANGO_SECRET_KEY=secretkey"
       - "DEBUG=False"
@@ -39,8 +41,8 @@ services:
       - ./static:/app/static
     ports:
       - "80:80"
-    links:
-      - backend
+    depends_on:
+      - web
 
 volumes:
   postgres_data:
