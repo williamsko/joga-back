@@ -133,3 +133,5 @@ env
 
 # static files
 static/
+*/.DS_Store
+.DS_Store
