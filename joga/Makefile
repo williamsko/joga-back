@@ -7,7 +7,8 @@ down:
 	docker-compose down
 
 up: 
-	docker-compose up
+	docker-compose down
+	docker-compose up -d
 
-up-no-cache:
-	docker-compose build --no-cache
+build:
+	docker-compose build --force-rm --progress string
