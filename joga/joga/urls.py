@@ -14,16 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from apps.customer import urls as customer_api_urls
+from apps.offer import urls as offer_api_urls
+from apps.entity import urls as financial_institution_api_urls
+from apps.investment_type import urls as investment_type_api_urls
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include
+from django.conf.urls import url, include
+from tastypie.api import Api
 
 admin.site.site_header = 'Joga admin'
 admin.site.site_title = 'Joga admin'
 admin.site.index_title = 'Welcome to  Joga platform administration'
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('customer/', include(customer_api_urls)),
+    path('', include(offer_api_urls)),
+    path('', include(financial_institution_api_urls)),
+    path('', include(investment_type_api_urls)),
 ]
